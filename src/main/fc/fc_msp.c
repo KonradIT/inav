@@ -3074,13 +3074,11 @@ static mspResult_e mspFcProcessInCommand(uint16_t cmdMSP, sbuf_t *src)
         break;
 
     case MSP_SET_PILOT_NAME:
-        const MAX_PILOT_NAME_LENGTH = 16;
-
-        if (dataSize <= MAX_PILOT_NAME_LENGTH) {
+        if (dataSize <= MAX_NAME_LENGTH) {
             char *name = systemConfigMutable()->pilotName;
-            int len = MIN(MAX_PILOT_NAME_LENGTH, (int)dataSize);
+            int len = MIN(MAX_NAME_LENGTH, (int)dataSize);
             sbufReadData(src, name, len);
-            memset(&name[len], '\0', (MAX_PILOT_NAME_LENGTH + 1) - len);
+            memset(&name[len], '\0', (MAX_NAME_LENGTH + 1) - len);
         } else
             return MSP_RESULT_ERROR;
         break;
