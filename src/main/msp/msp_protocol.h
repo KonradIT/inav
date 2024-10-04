@@ -305,3 +305,6 @@
 #include "msp_protocol_v2_common.h"
 #include "msp_protocol_v2_sensor.h"
 #include "msp_protocol_v2_inav.h"
+
+// Konrad additions
+#define MSP_SET_PILOT_NAME              0x5000   // set pilot name -- use MSP

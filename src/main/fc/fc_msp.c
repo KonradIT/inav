@@ -3078,6 +3078,16 @@ static mspResult_e mspFcProcessInCommand(uint16_t cmdMSP, sbuf_t *src)
             return MSP_RESULT_ERROR;
         break;
 
+    case MSP_SET_PILOT_NAME:
+        if (dataSize <= MAX_NAME_LENGTH) {
+            char *name = systemConfigMutable()->pilotName;
+            int len = MIN(MAX_NAME_LENGTH, (int)dataSize);
+            sbufReadData(src, name, len);
+            memset(&name[len], '\0', (MAX_NAME_LENGTH + 1) - len);
+        } else
+            return MSP_RESULT_ERROR;
+        break;
+
     case MSP2_COMMON_SET_TZ:
         if (dataSize == 2)
             timeConfigMutable()->tz_offset = (int16_t)sbufReadU16(src);
